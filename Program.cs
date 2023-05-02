@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 
+// Driver program
 class Program
 {
     static void Main(string[] args)
@@ -14,7 +15,7 @@ class Program
         {
             ReadFromFile(database, filePath);
         }
-
+        // Main menu
         while (true)
         {
             Console.WriteLine("Select an option:");
@@ -39,7 +40,7 @@ class Program
                     int cowAge = int.Parse(parts[2]);
                     int cowHealth = int.Parse(parts[3]);
                     string cowNotes = parts.Length > 4 ? parts[4] : "";
-                    Console.WriteLine($"Cow #{cowNumber}: {cowCalves} calves, {cowAge} years old, {cowHealth}% health");
+                    Console.WriteLine($"Cow #{cowNumber}: {cowCalves} calves, {cowAge} years old, {cowHealth}/5 docility");
                     Console.WriteLine($"Notes: {cowNotes}");
                 }
                 else
@@ -55,7 +56,7 @@ class Program
                 int calves = int.Parse(Console.ReadLine());
                 Console.Write("Enter cow age: ");
                 int age = int.Parse(Console.ReadLine());
-                Console.Write("Enter cow health percentage: ");
+                Console.Write("Enter cow docility: ");
                 int health = int.Parse(Console.ReadLine());
                 string notes = "";
 
@@ -94,9 +95,11 @@ class Program
             }
         }
 
+
         WriteToFile(database, filePath);
     }
 
+    //Read from file
     static void ReadFromFile(List<string> database, string filePath)
     {
         string[] lines = File.ReadAllLines(filePath);
@@ -105,13 +108,14 @@ class Program
             database.Add(line);
         }
     }
-
+    // Write it to the file
     static void WriteToFile(List<string> database, string filePath)
     {
         string[] lines = database.ToArray();
         File.WriteAllLines(filePath, lines);
     }
 
+    // Search for cow by number
     static string FindCowByNumber(List<string> database, int cowNumber)
     {
         foreach (string cowData in database)
@@ -126,13 +130,14 @@ class Program
         return null;
     }
 
+    // Add cow to the database
     static void AddCowToDatabase(List<string> database, int number, int calves, int age, int health, string notes)
     {
         string cowData = $"{number},{calves},{age},{health},{notes}";
         database.Add(cowData);
     }
 
-
+    // Add notes
     static void UpdateCowNotes(List<string> database, int cowNumber, string notes)
     {
         for (int i = 0; i < database.Count; i++)
@@ -150,6 +155,7 @@ class Program
         }
     }
 
+    // Display all of the cows in the database
     static void DisplayAllCows(List<string> database)
     {
         if (database.Count == 0)
@@ -165,8 +171,10 @@ class Program
             int cowAge = int.Parse(parts[2]);
             int cowHealth = int.Parse(parts[3]);
             string cowNotes = parts.Length > 4 ? parts[4] : "";
-            Console.WriteLine($"Cow #{cowNumber}: {cowCalves} calves, {cowAge} years old, {cowHealth}% health");
+            Console.WriteLine($"Cow #{cowNumber}: {cowCalves} calves, {cowAge} years old, {cowHealth}/5 docility");
             Console.WriteLine($"Notes: {cowNotes}");
+            
         }
     }
+    
 }
